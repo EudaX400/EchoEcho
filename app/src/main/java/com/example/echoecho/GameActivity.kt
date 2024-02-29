@@ -10,6 +10,7 @@ import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.animation.doOnEnd
 import kotlinx.coroutines.*
+import java.util.ArrayList
 import kotlin.random.Random
 
 class GameActivity : AppCompatActivity() {
