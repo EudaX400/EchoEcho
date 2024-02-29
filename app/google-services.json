@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "70858276697",
+    "project_id": "echoecho-5e815",
+    "storage_bucket": "echoecho-5e815.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:70858276697:android:dc261b9eac267effb8d648",
+        "android_client_info": {
+          "package_name": "com.example.echoecho"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC40dqz8jf_nYk4CgzwoHpX4uBEttvvwzc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
