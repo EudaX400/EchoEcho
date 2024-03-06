@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="#58FA58"
+    android:layout_height="match_parent"
+    android:background="@drawable/gradient_background"
     android:layout_gravity="center"
     tools:context=".Menu">
     <LinearLayout
@@ -64,6 +62,7 @@
             android:layout_height="wrap_content"
             android:text="@string/jugarBtn"
             android:layout_marginTop="10dp"
+            android:background="@drawable/botopropi"
             />
         <!-- BOTO DE puntuacions -->
         <Button
@@ -72,6 +71,7 @@
             android:layout_height="wrap_content"
             android:text="@string/PuntuacionsBtn"
             android:layout_marginTop="10dp"
+            android:background="@drawable/botopropi"
             />
         <!-- BOTO DE Credits -->
         <Button
@@ -80,6 +80,7 @@
             android:layout_height="wrap_content"
             android:text="@string/CreditsBtn"
             android:layout_marginTop="10dp"
+            android:background="@drawable/botopropi"
             />
         <!-- BOTO DE Tancar sessió -->
         <Button
@@ -88,6 +89,7 @@
             android:layout_height="wrap_content"
             android:text="@string/tancarSessio"
             android:layout_marginTop="10dp"
+            android:background="@drawable/botopropi"
             />
     </LinearLayout>
 </ScrollView>

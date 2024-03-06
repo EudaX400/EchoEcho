@@ -18,7 +18,6 @@ class MainActivity : AppCompatActivity() {
         //assigna valor a user
         auth = FirebaseAuth.getInstance()
         user = auth.currentUser
-        53
         var BTMLOGIN = findViewById<Button>(R.id.BTMLOGIN);
         var BTMREGISTRO = findViewById<Button>(R.id.BTMREGISTRO);
         BTMLOGIN.setOnClickListener() {
