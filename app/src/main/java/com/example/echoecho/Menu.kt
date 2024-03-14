@@ -55,6 +55,8 @@ class Menu : AppCompatActivity() {
         }
         PuntuacionsBtn.setOnClickListener {
             Toast.makeText(this, "Puntuacions", Toast.LENGTH_SHORT).show()
+            val intent = Intent(this, Recyclerview1::class.java)
+            startActivity(intent)
         }
         jugarBtn.setOnClickListener {
             Toast.makeText(this, "JUGAR", Toast.LENGTH_SHORT).show()

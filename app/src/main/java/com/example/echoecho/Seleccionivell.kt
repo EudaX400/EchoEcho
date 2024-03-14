@@ -26,6 +26,5 @@ class Seleccionivell : AppCompatActivity() {
             startActivity(intent)
         }
 
-
     }
 }
