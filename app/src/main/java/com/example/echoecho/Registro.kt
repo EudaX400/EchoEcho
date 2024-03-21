@@ -1,15 +1,18 @@
 package com.example.echoecho
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.icu.text.DateFormat.getDateInstance
 import android.icu.text.SimpleDateFormat
 import android.icu.util.Calendar
+import android.os.Build
 import android.os.Bundle
 import android.util.Patterns
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -24,7 +27,11 @@ class Registro : AppCompatActivity() {
     lateinit var fechaTxt: TextView
     lateinit var Registrar: Button
 
+    lateinit var edatEt :EditText
+    lateinit var poblacioEt :EditText
+
     lateinit var auth: FirebaseAuth
+    @RequiresApi(Build.VERSION_CODES.N)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_registro)
@@ -36,6 +43,9 @@ class Registro : AppCompatActivity() {
         fechaTxt = findViewById<TextView>(R.id.fechaTxt)
         Registrar = findViewById<Button>(R.id.Registrar)
         auth = FirebaseAuth.getInstance()
+        edatEt =findViewById<EditText>(R.id.edatEt)
+        poblacioEt =findViewById<EditText>(R.id.poblacioEt)
+
 
 
         //carreguem la data al TextView
@@ -84,6 +94,7 @@ class Registro : AppCompatActivity() {
             }
 
     }
+    @SuppressLint("SuspiciousIndentation")
     fun updateUI(user: FirebaseUser?) {
         //hi ha un interrogant perquè podria ser null
         if (user != null) {
@@ -93,6 +104,8 @@ class Registro : AppCompatActivity() {
             var passString: String = passEt.text.toString()
             var nombreString: String = nombreEt.text.toString()
             var fechaString: String = fechaTxt.text.toString()
+            var edatString = edatEt.getText().toString()
+            var poblacioString = poblacioEt.getText().toString()
             //AQUI GUARDA EL CONTINGUT A LA BASE DE DADES
 
             var dadesJugador : HashMap<String,String> = HashMap<String, String>()
@@ -102,6 +115,9 @@ class Registro : AppCompatActivity() {
             dadesJugador.put ("Nom",nombreString)
             dadesJugador.put ("Data",fechaString)
             dadesJugador.put ("Puntuacio", puntuacio.toString())
+            dadesJugador.put ("Edat",edatString)
+            dadesJugador.put ("Poblacio",poblacioString)
+            dadesJugador.put ("Imatge","")
 
             var database: FirebaseDatabase = FirebaseDatabase.getInstance("https://echoecho-5e815-default-rtdb.europe-west1.firebasedatabase.app/")
             var reference: DatabaseReference = database.getReference("DATA BASE JUGADORS")

@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#54E6D5"
+    android:background="@drawable/gradient_background"
     tools:context=".Registro">
 
     <LinearLayout
@@ -12,6 +12,12 @@
         android:gravity="center"
         android:orientation="vertical"
         android:padding="30dp">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:id="@+id/jugador"
+            android:src="@drawable/user" />
 
         <!-- ENTREM EL MAIL -->
         <EditText
@@ -39,6 +45,17 @@
             android:layout_height="wrap_content"
 
             android:hint="@string/nombreEt" />
+
+        <EditText
+            android:id="@+id/edatEt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/edatEt" />
+        <EditText
+            android:id="@+id/poblacioEt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/poblacioEt" />
 
         <!-- DATA ACTUAL -->
         <TextView
