@@ -20,6 +20,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.commit
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DataSnapshot
@@ -32,6 +33,8 @@ import com.google.firebase.storage.StorageReference
 import com.squareup.picasso.Picasso
 import java.io.ByteArrayOutputStream
 import java.io.InputStream
+import java.util.Timer
+import java.util.TimerTask
 
 class Menu : AppCompatActivity() {
     //creem unes variables per comprovar ususari i authentificació
@@ -51,6 +54,7 @@ class Menu : AppCompatActivity() {
     lateinit var reference: DatabaseReference
     lateinit var imatgeUri: Uri
     lateinit var storageReference: StorageReference
+    var timer= Timer()
 
 
     var user: FirebaseUser? = null
@@ -100,9 +104,12 @@ class Menu : AppCompatActivity() {
             startActivity(intent)
         }
 
-
+        CreditsBtn.setOnClickListener { Toast.makeText(this, "Credits", Toast.LENGTH_SHORT).show()
+            val intent = Intent(this, Credits::class.java)
+            startActivity(intent) }
 
     }
+
 
     private fun tancalaSessio() {
         auth.signOut() //tanca la sessió
