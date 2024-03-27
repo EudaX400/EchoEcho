@@ -33,7 +33,7 @@ class Recyclerview1 : AppCompatActivity() {
                     val nomJugador = ds.child("Nom").getValue(String::class.java) ?: ""
                     val puntuacionStr = ds.child("Puntuacio").getValue(String::class.java) ?: "0"
                     val puntuacion = puntuacionStr.toIntOrNull() ?: 0
-                    val foto = ds.child("foto").getValue(String::class.java) ?: ""
+                    val foto = ds.child("Imatge").getValue(String::class.java) ?: ""
                     val jugador = Jugador(nomJugador, puntuacion, foto)
                     jugadores.add(jugador)
                 }

@@ -1,12 +1,15 @@
 package com.example.echoecho
 
+import android.app.Activity
 import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import android.provider.Settings
 import android.util.Log
 import android.widget.Button
@@ -28,6 +31,7 @@ import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.squareup.picasso.Picasso
 import java.io.ByteArrayOutputStream
+import java.io.InputStream
 
 class Menu : AppCompatActivity() {
     //creem unes variables per comprovar ususari i authentificació
@@ -137,8 +141,14 @@ class Menu : AppCompatActivity() {
                 }
             }
             .setPositiveButton("Càmera") { view, _ ->
-                Toast.makeText(this, "A IMPLEMENTAR PELS ALUMNES", Toast.LENGTH_LONG).show()
-                view.dismiss()
+                val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+                if (intent.resolveActivity(packageManager) != null){
+                    startActivityForResult(intent, 1)
+
+                }else {
+                    Toast.makeText(this, "ERROR PERMISOS DE CÁMARA", Toast.LENGTH_SHORT).show()
+                }
+
             }
             .setCancelable(false)
             .create()
@@ -168,7 +178,7 @@ class Menu : AppCompatActivity() {
         }
     }
 
-
+    
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<String>,
@@ -208,50 +218,128 @@ class Menu : AppCompatActivity() {
             .show()
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int,
-                                  data: Intent?) {
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        val REQUEST_CODE = 201
-        if (requestCode == REQUEST_CODE && resultCode == RESULT_OK) {
-            imatgeUri = data?.data!!
-            imatgePerfil.setImageURI(imatgeUri)
-            pujarFoto(imatgeUri)
-        } else {
-            Toast.makeText(
-                this, "Error recuperant imatge de galeria",
-                Toast.LENGTH_SHORT
-            ).show()
+        val REQUEST_CODE_GALLERY = 201
+        val REQUEST_CODE_CAMERA = 1
+
+        if (resultCode == Activity.RESULT_OK) {
+            if (requestCode == REQUEST_CODE_GALLERY && data != null) {
+                // Imagen seleccionada desde la galería
+                val imatgeUri = data.data
+                imatgeUri?.let {
+                    imatgePerfil.setImageURI(imatgeUri)
+                    pujarFoto(imatgeUri)
+                }
+            } else if (requestCode == REQUEST_CODE_CAMERA && data != null) {
+                // Imagen capturada desde la cámara
+                val extras = data.extras
+                extras?.let {
+                    val imgBitmap = extras.get("data") as Bitmap
+                    imatgePerfil.setImageBitmap(imgBitmap)
+                    uploadBitmapToFirebase(imgBitmap)
+                }
+            }
         }
     }
 
+    private fun uploadBitmapToFirebase(bitmap: Bitmap) {
+        val folderReference: StorageReference = storageReference.child("Imatge")
+        val uid: String = FirebaseAuth.getInstance().currentUser?.uid ?: ""
+        val imageReference: StorageReference = folderReference.child("$uid.jpg")
 
-    private fun pujarFoto (imatgeUri: Uri) {
-        var folderReference: StorageReference =
-            storageReference.child("FotosPerfil")
-        var Uids: String = uid.getText().toString()
-        //Podriem fer:
-        //folderReference.child(Uids).putFile(imatgeUri)
-        //Pero utilitzem el mètode recomanat a la documentació
-        // https://firebase.google.com/docs/storage/android/uploadfiles
-        // Get the data from an ImageView as bytes
-        imatgePerfil.isDrawingCacheEnabled = true
-        imatgePerfil.buildDrawingCache()
-        val bitmap = (imatgePerfil.drawable as BitmapDrawable).bitmap
+        // Convertir el Bitmap en bytes
         val baos = ByteArrayOutputStream()
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
         val data = baos.toByteArray()
-        var uploadTask = folderReference.child(Uids).putBytes(data)
-        uploadTask.addOnFailureListener {
-            // Handle unsuccessful uploads
+
+        // Pujar la imatge a Firebase Storage
+        val uploadTask = imageReference.putBytes(data)
+        uploadTask.addOnFailureListener { exception ->
+            // Manejar errors en la càrrega
             Toast.makeText(
-                this, "Error enviant imatge a Storage",
+                this, "Error en pujar la imatge al magatzem: ${exception.message}",
                 Toast.LENGTH_SHORT
             ).show()
         }.addOnSuccessListener { taskSnapshot ->
-            // taskSnapshot.metadata contains file metadata such as size, content-type, etc.
-            // ...
+            // La imatge s'ha pujat correctament
+            // Obtenir la URL de la imatge pujada
+            imageReference.downloadUrl.addOnSuccessListener { uri ->
+                // Guardar la URL de la imatge a la base de dades de Firebase
+                guardarUrlImatgeEnFirebase(uid, uri.toString())
+            }.addOnFailureListener { exception ->
+                // Manejar errors en obtenir la URL de la imatge
+                Toast.makeText(
+                    this, "Error en obtenir la URL de la imatge: ${exception.message}",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
         }
     }
+
+    private fun pujarFoto(imatgeUri: Uri) {
+        val folderReference: StorageReference = storageReference.child("Imatge")
+        val uid: String = FirebaseAuth.getInstance().currentUser?.uid ?: ""
+        val imageReference: StorageReference = folderReference.child("$uid.jpg")
+
+        // Convertir la imatge en bytes
+        val inputStream: InputStream? = contentResolver.openInputStream(imatgeUri)
+        inputStream?.let {
+            val bitmap = BitmapFactory.decodeStream(it)
+            val baos = ByteArrayOutputStream()
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
+            val data = baos.toByteArray()
+
+            // Pujar la imatge a Firebase Storage
+            val uploadTask = imageReference.putBytes(data)
+            uploadTask.addOnFailureListener { exception ->
+                // Manejar errors en la càrrega
+                Toast.makeText(
+                    this, "Error en pujar la imatge al magatzem: ${exception.message}",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }.addOnSuccessListener { taskSnapshot ->
+                // La imatge s'ha pujat correctament
+                // Obtenir la URL de la imatge pujada
+                imageReference.downloadUrl.addOnSuccessListener { uri ->
+                    // Guardar la URL de la imatge a la base de dades de Firebase
+                    guardarUrlImatgeEnFirebase(uid, uri.toString())
+                }.addOnFailureListener { exception ->
+                    // Manejar errors en obtenir la URL de la imatge
+                    Toast.makeText(
+                        this, "Error en obtenir la URL de la imatge: ${exception.message}",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+        } ?: run {
+            // No s'ha pogut obrir l'inputStream
+            Toast.makeText(
+                this, "Error en obrir la imatge seleccionada",
+                Toast.LENGTH_SHORT
+            ).show()
+        }
+    }
+
+    private fun guardarUrlImatgeEnFirebase(uid: String, imageUrl: String) {
+        val database = FirebaseDatabase.getInstance("https://echoecho-5e815-default-rtdb.europe-west1.firebasedatabase.app/")
+        val reference = database.getReference("BASE DE DADES JUGADORS")
+        reference.child(uid).child("Imatge").setValue(imageUrl)
+            .addOnSuccessListener {
+                // La URL de la imatge s'ha guardat correctament a la base de dades
+                Toast.makeText(
+                    this, "URL de la imatge guardada a Firebase",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }.addOnFailureListener { exception ->
+                // Manejar errors en guardar la URL de la imatge
+                Toast.makeText(
+                    this, "Error en guardar la URL de la imatge a Firebase: ${exception.message}",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+    }
+
 
 
         private fun usuariLogejat() {
