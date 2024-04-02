@@ -5,43 +5,44 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.media.MediaPlayer
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Button
+import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.animation.doOnEnd
-import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import com.google.firebase.database.DatabaseReference
+import kotlinx.coroutines.*
+import java.util.ArrayList
 import kotlin.random.Random
 
-class GameActivity : AppCompatActivity() {
+class GameActivity2 : AppCompatActivity() {
 
     private lateinit var database: DatabaseReference
     private val imageArray = ArrayList<ImageView>()
     private val sequence = ArrayList<ImageView>()
     private var current = 0
     private var puntsactuals: Int = 0
-    private lateinit var puntuacion: TextView
+    private lateinit var puntuacion : TextView
+
 
     private lateinit var mediaPlayerPiano: MediaPlayer
     private lateinit var mediaPlayerGuitar: MediaPlayer
+    private lateinit var mediaPlayerMaracas: MediaPlayer
     private lateinit var mediaPlayerTambor: MediaPlayer
 
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_game)
+        setContentView(R.layout.activity_game2)
 
         database = FirebaseDatabase.getInstance().reference.child("scores")
         mediaPlayerPiano = MediaPlayer.create(this, R.raw.piano)
         mediaPlayerGuitar = MediaPlayer.create(this, R.raw.guitar)
+        mediaPlayerMaracas = MediaPlayer.create(this, R.raw.maracas)
         mediaPlayerTambor = MediaPlayer.create(this, R.raw.tambor)
 
         puntuacion = findViewById(R.id.puntuacion)
@@ -50,6 +51,7 @@ class GameActivity : AppCompatActivity() {
         imageArray.add(findViewById(R.id.imageView1))
         imageArray.add(findViewById(R.id.imageView2))
         imageArray.add(findViewById(R.id.imageView3))
+        imageArray.add(findViewById(R.id.imageView4))
 
         launchOnMain {
             delay(1000)
@@ -61,6 +63,7 @@ class GameActivity : AppCompatActivity() {
         puntsactuals += increment
         puntuacion.text = puntsactuals.toString()
     }
+
 
     private fun launchOnMain(block: suspend CoroutineScope.() -> Unit): Job {
         return CoroutineScope(Dispatchers.Main).launch {
@@ -94,6 +97,7 @@ class GameActivity : AppCompatActivity() {
             imageArray[0] -> mediaPlayerTambor.start()
             imageArray[1] -> mediaPlayerGuitar.start()
             imageArray[2] -> mediaPlayerPiano.start()
+            imageArray[3] -> mediaPlayerMaracas.start()
         }
     }
 
@@ -149,7 +153,7 @@ class GameActivity : AppCompatActivity() {
 
                 // Handle the button click event to return to the main menu
                 findViewById<Button>(R.id.buttonVolver).setOnClickListener {
-                    val intent = Intent(this@GameActivity, MainActivity::class.java)
+                    val intent = Intent(this@GameActivity2, MainActivity::class.java)
                     startActivity(intent)
                     finish() // Finish the current activity to prevent going back to it from the main menu
                 }
@@ -157,24 +161,11 @@ class GameActivity : AppCompatActivity() {
         }
     }
 
-
-    /*private fun saveScoreAndShowResult() {
-        val score = puntsactuals
-        CoroutineScope(Dispatchers.IO).launch {
-            database.push().setValue(score)
-            withContext(Dispatchers.Main) {
-                val intent = Intent(this@GameActivity, PuntuacionActivity::class.java)
-                intent.putExtra("SCORE", score) // Pass the score value
-                startActivity(intent)
-            }
-        }
-    }*/
-
-
     override fun onDestroy() {
         super.onDestroy()
         mediaPlayerPiano.release()
         mediaPlayerGuitar.release()
+        mediaPlayerMaracas.release()
         mediaPlayerTambor.release()
     }
 }

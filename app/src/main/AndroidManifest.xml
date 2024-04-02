@@ -52,6 +52,13 @@
             android:name=".GameActivity"
             android:exported="false" />
         <activity
+            android:name=".GameActivity2"
+            android:exported="false" />
+
+        <activity
+            android:name=".GameActivity3"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
