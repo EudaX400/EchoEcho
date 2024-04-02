@@ -22,7 +22,6 @@
         <activity
             android:name=".Credits"
             android:exported="false"
-            android:label="@string/title_activity_credits"
             android:theme="@style/Theme.EchoEcho" />
         <activity
             android:name=".Recyclerview1"

@@ -29,4 +29,5 @@
     <string name="CreditsBtn">Credits</string>
     <string name="edat"> -- </string>
     <string name="poblacio"> -- </string>
+    <string name="canviarContrasenya">Change password</string>
 </resources>

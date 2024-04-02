@@ -142,28 +142,31 @@ class GameActivity : AppCompatActivity() {
     private fun saveScoreAndShowResult() {
         val uid = FirebaseAuth.getInstance().currentUser?.uid
         if (uid != null) {
-            val userScoreRef = FirebaseDatabase.getInstance("https://echoecho-5e815-default-rtdb.europe-west1.firebasedatabase.app/")
-                .reference
-                .child("DATA BASE JUGADORS")
-                .child(uid)
-                .child("Puntuacio")
+            val userScoreRef =
+                FirebaseDatabase.getInstance("https://echoecho-5e815-default-rtdb.europe-west1.firebasedatabase.app/")
+                    .reference
+                    .child("DATA BASE JUGADORS")
+                    .child(uid)
+                    .child("Puntuacio")
 
             // Retrieve the existing score from the database
             userScoreRef.get().addOnSuccessListener { dataSnapshot ->
                 if (dataSnapshot.exists()) {
-                    val existingScore = dataSnapshot.getValue(Int::class.java) ?: 0
+                    val existingScoreStr = dataSnapshot.getValue(String::class.java) ?: "0"
+                    val existingScore = existingScoreStr.toIntOrNull() ?: 0
 
                     // Add the new score to the existing score
                     val newScore = existingScore + puntsactuals
 
-                    // Convert the new score to a string before saving it to the database
+                    // Save the new score as a string to the database
                     userScoreRef.setValue(newScore.toString())
 
                     // Display the total score in the UI
                     CoroutineScope(Dispatchers.Main).launch {
                         setContentView(R.layout.activity_puntuacion)
-                        val textViewPuntuacionValor = findViewById<TextView>(R.id.textViewPuntuacionValor)
-                        textViewPuntuacionValor.text = newScore.toString()
+                        val textViewPuntuacionValor =
+                            findViewById<TextView>(R.id.textViewPuntuacionValor)
+                        textViewPuntuacionValor.text = puntsactuals.toString()
 
                         // Handle the button click event to return to the main menu
                         findViewById<Button>(R.id.buttonVolver).setOnClickListener {
@@ -179,7 +182,8 @@ class GameActivity : AppCompatActivity() {
                     // Display the new score in the UI
                     CoroutineScope(Dispatchers.Main).launch {
                         setContentView(R.layout.activity_puntuacion)
-                        val textViewPuntuacionValor = findViewById<TextView>(R.id.textViewPuntuacionValor)
+                        val textViewPuntuacionValor =
+                            findViewById<TextView>(R.id.textViewPuntuacionValor)
                         textViewPuntuacionValor.text = puntsactuals.toString()
 
                         // Handle the button click event to return to the main menu

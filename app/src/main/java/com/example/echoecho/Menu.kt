@@ -338,7 +338,7 @@ class Menu : AppCompatActivity() {
 
     private fun guardarUrlImatgeEnFirebase(uid: String, imageUrl: String) {
         val database = FirebaseDatabase.getInstance("https://echoecho-5e815-default-rtdb.europe-west1.firebasedatabase.app/")
-        val reference = database.getReference("BASE DE DADES JUGADORS")
+        val reference = database.getReference("DATA BASE JUGADORS")
         reference.child(uid).child("Imatge").setValue(imageUrl)
             .addOnSuccessListener {
                 // La URL de la imatge s'ha guardat correctament a la base de dades
