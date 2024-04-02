@@ -29,5 +29,6 @@
     <string name="CreditsBtn">Crèdits</string>
     <string name="edat"> -- </string>
     <string name="poblacio"> -- </string>
+    <string name="punts"> punts</string>
 
 </resources>

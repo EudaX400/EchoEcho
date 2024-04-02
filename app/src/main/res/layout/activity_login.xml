@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="#54E6D5"
+    android:background="@drawable/gradient_background"
     tools:context=".Registro">
 
     <LinearLayout
@@ -14,6 +14,13 @@
         android:orientation="vertical"
         android:padding="30dp">
         <!-- ENTREM EL MAIL -->
+        <ImageView
+            android:id="@+id/imageView6"
+            android:layout_width="344dp"
+            android:layout_height="323dp"
+            android:layout_centerHorizontal="true"
+            app:srcCompat="@drawable/segon" />
+
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -21,9 +28,11 @@
             <EditText
                 android:id="@+id/correoLogin"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="52dp"
                 android:hint="@string/correoLogin"
-                android:inputType="textEmailAddress" />
+                android:inputType="textEmailAddress"
+                android:textSize="22sp"
+                />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -34,10 +43,12 @@
             <EditText
                 android:id="@+id/passLogin"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="57dp"
                 android:layout_marginTop="10dp"
                 android:hint="@string/passLogin"
-                android:inputType="textPassword" />
+                android:inputType="textPassword"
+                android:textSize="22sp"
+                />
         </com.google.android.material.textfield.TextInputLayout>
         <!-- BOTO DE ENTRAR -->
         <Button
@@ -45,7 +56,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="@string/BtnLogin" />
+            android:text="@string/BtnLogin"
+            android:textSize="17sp"
+            android:background="@drawable/botopropi"
+
+            />
 
     </LinearLayout>
 </RelativeLayout>

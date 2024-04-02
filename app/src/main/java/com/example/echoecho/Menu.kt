@@ -1,5 +1,6 @@
 package com.example.echoecho
 
+import android.Manifest
 import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -148,7 +149,7 @@ class Menu : AppCompatActivity() {
     fun isPermissionsAllowed(): Boolean {
         return ContextCompat.checkSelfPermission(
             this,
-            android.Manifest.permission.READ_EXTERNAL_STORAGE
+            Manifest.permission.READ_EXTERNAL_STORAGE
         ) == PackageManager.PERMISSION_GRANTED
     }
 
@@ -158,7 +159,7 @@ class Menu : AppCompatActivity() {
         if (!isPermissionsAllowed()) {
             ActivityCompat.requestPermissions(
                 this, arrayOf(
-                    android.Manifest.permission.READ_EXTERNAL_STORAGE
+                    Manifest.permission.READ_EXTERNAL_STORAGE
                 ), REQUEST_CODE
             )
             return false

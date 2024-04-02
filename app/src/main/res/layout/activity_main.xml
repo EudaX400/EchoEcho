@@ -8,19 +8,6 @@
     tools:context=".MainActivity">
 
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="180dp"
-        android:fontFamily="@font/amaranth"
-        android:text="Echo Echo"
-        android:textSize="48sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -29,19 +16,35 @@
         android:padding="20dp">
         <!-- botó de login -->
 
+        <!--botó de registrar-se -->
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="445dp"
+            android:layout_height="421dp"
+            app:srcCompat="@drawable/segon" />
+
+        <Button
+            android:id="@+id/BTMREGISTRO"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/BTMREGISTRO"
+            android:background="@drawable/botopropi"
+            android:textSize="20sp"
+            />
+
+
         <Button
             android:id="@+id/BTMLOGIN"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/botopropi"
+            android:text="@string/BTMLOGIN"
+            android:layout_marginTop="10dp"
             android:textColor="@color/black"
-            android:text="@string/BTMLOGIN" />
-        <!--botó de registrar-se -->
-        <Button
-            android:id="@+id/BTMREGISTRO"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/BTMREGISTRO" />
+            android:textSize="20sp"
+            />
+
+
 
     </LinearLayout>
 

@@ -13,28 +13,31 @@
         android:orientation="vertical"
         android:padding="30dp">
 
+        <!-- ENTREM EL MAIL -->
+
         <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/jugador"
             android:layout_width="150dp"
             android:layout_height="150dp"
-            android:id="@+id/jugador"
             android:src="@drawable/user" />
 
-        <!-- ENTREM EL MAIL -->
         <EditText
             android:id="@+id/correoEt"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="65dp"
             android:hint="@string/correoEt"
-            android:inputType="textEmailAddress" />
+            android:inputType="textEmailAddress"
+            android:textColor="#FFFFFF" />
         <!-- forcem que la entrada sigui un correu electronic -->
 
         <!-- ENTREM EL PASSWORD -->
         <EditText
             android:id="@+id/passEt"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="61dp"
             android:hint="@string/passEt"
-            android:inputType="textPassword" />
+            android:inputType="textPassword"
+            android:textColor="#FFFFFF" />
         <!-- forcem que la entrada sigui un password -->
 
 
@@ -42,20 +45,23 @@
         <EditText
             android:id="@+id/nombreEt"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-
-            android:hint="@string/nombreEt" />
+            android:layout_height="68dp"
+            android:hint="@string/nombreEt"
+            android:textColor="#FFFFFF" />
 
         <EditText
             android:id="@+id/edatEt"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/edatEt" />
+            android:layout_height="62dp"
+            android:hint="@string/edatEt"
+            android:textColor="#FFFFFF" />
+
         <EditText
             android:id="@+id/poblacioEt"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/poblacioEt" />
+            android:layout_height="62dp"
+            android:hint="@string/poblacioEt"
+            android:textColor="#FFFFFF" />
 
         <!-- DATA ACTUAL -->
         <TextView
@@ -65,7 +71,8 @@
             android:layout_marginTop="10dp"
             android:gravity="center"
             android:hint="@string/fechaTxt"
-            android:textSize="20sp" />
+            android:textColor="#FFFFFF"
+            android:textSize="22sp" />
 
         <!-- BOTO DE ENTRAR -->
         <Button
@@ -73,6 +80,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="@string/Registrar" />
+            android:text="@string/Registrar"
+            android:textSize="20sp"
+            android:background="#fdff82" />
+
     </LinearLayout>
 </RelativeLayout>

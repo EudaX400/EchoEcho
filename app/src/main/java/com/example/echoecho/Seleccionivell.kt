@@ -11,6 +11,12 @@ class Seleccionivell : AppCompatActivity() {
     lateinit var level2: Button
     lateinit var level3: Button
 
+    private var NOM: String =""
+    private var PUNTUACIO: String=""
+    private var UID: String=""
+    private var NIVELL: String=""
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,6 +29,16 @@ class Seleccionivell : AppCompatActivity() {
 
         level1.setOnClickListener {
             val intent = Intent(this, GameActivity::class.java)
+            startActivity(intent)
+        }
+
+        level2.setOnClickListener {
+            val intent = Intent(this, GameActivity2::class.java)
+            startActivity(intent)
+        }
+
+        level3.setOnClickListener {
+            val intent = Intent(this, GameActivity3::class.java)
             startActivity(intent)
         }
 
