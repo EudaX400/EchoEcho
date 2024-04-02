@@ -15,11 +15,14 @@ class JugadorsViewHolder (view: View): RecyclerView.ViewHolder(view) {
     val puntuacioJugador=view.findViewById<TextView>(R.id.tvPuntuacio_Jugador)
     val foto=view.findViewById<ImageView>(R.id.ivJugador)
 
-    fun render(jugadorModel: Jugador){
-        //la cridara per a cada jugador
-        nomJugador.text=jugadorModel.nom_jugador
-        puntuacioJugador.text=jugadorModel.puntuacio.toString() //recordem que és un int
-        Picasso.get().load(jugadorModel.foto).resize(150,150).into(foto)
-
+    fun render(jugador: Jugador){
+        nomJugador.text = jugador.nom_jugador
+        puntuacioJugador.text = jugador.puntuacio.toString()
+        if (jugador.foto.isNotEmpty()) {
+            Picasso.get().load(jugador.foto).resize(150,150).into(foto)
+        } else {
+            // Si la URL de la imagen está vacía, mostrar una imagen predeterminada
+            Picasso.get().load(R.drawable.user).resize(150,150).into(foto)
+        }
     }
 }
