@@ -17,6 +17,9 @@
         android:theme="@style/Theme.EchoEcho"
         tools:targetApi="31">
         <activity
+            android:name=".CanviarContrasenya"
+            android:exported="false" />
+        <activity
             android:name=".Credits"
             android:exported="false"
             android:label="@string/title_activity_credits"
@@ -54,7 +57,6 @@
         <activity
             android:name=".GameActivity2"
             android:exported="false" />
-
         <activity
             android:name=".GameActivity3"
             android:exported="false" />

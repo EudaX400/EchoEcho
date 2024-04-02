@@ -3,7 +3,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:layout_gravity="center"
     android:background="@drawable/gradient_background"
     tools:context=".Menu">
@@ -121,6 +121,15 @@
             android:textColor="#570094"/>
         <!-- BOTO DE Tancar sessió -->
         <Button
+            android:id="@+id/canviarContrasenya"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/botopropi"
+            android:text="@string/canviarContrasenya"
+            android:textSize="18sp"
+            android:textColor="#570094"/>
+        <Button
             android:id="@+id/tancarSessio"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -129,5 +138,6 @@
             android:text="@string/tancarSessio"
             android:textSize="18sp"
             android:textColor="#570094"/>
+
     </LinearLayout>
 </ScrollView>

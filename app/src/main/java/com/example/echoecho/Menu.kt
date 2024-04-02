@@ -46,6 +46,7 @@ class Menu : AppCompatActivity() {
     lateinit var PuntuacionsBtn: Button
     lateinit var jugarBtn: Button
     lateinit var editarBtn: Button
+    lateinit var canviarContrasenya: Button
     lateinit var puntuacio: TextView
     lateinit var uid: TextView
     lateinit var correo: TextView
@@ -77,6 +78,8 @@ class Menu : AppCompatActivity() {
         poblacio = findViewById(R.id.poblacio)
         imatgePerfil = findViewById(R.id.imatgePerfil)
         storageReference = FirebaseStorage.getInstance().getReference()
+        canviarContrasenya = findViewById(R.id.canviarContrasenya)
+
 
         auth = FirebaseAuth.getInstance()
         user = auth.currentUser
@@ -105,6 +108,10 @@ class Menu : AppCompatActivity() {
             val intent = Intent(this, Seleccionivell::class.java)
             startActivity(intent)
         }
+
+        canviarContrasenya.setOnClickListener { Toast.makeText(this, "Canviar contrasenya", Toast.LENGTH_SHORT).show()
+            val intent = Intent(this, CanviarContrasenya::class.java)
+            startActivity(intent) }
 
         CreditsBtn.setOnClickListener { Toast.makeText(this, "Credits", Toast.LENGTH_SHORT).show()
             val intent = Intent(this, Credits::class.java)

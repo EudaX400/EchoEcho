@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/gradient_background"
+    tools:context=".CanviarContrasenya">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="30dp">
+        <!-- ENTREM EL MAIL -->
+        <ImageView
+            android:id="@+id/imageView6"
+            android:layout_width="344dp"
+            android:layout_height="323dp"
+            android:layout_centerHorizontal="true"
+            app:srcCompat="@drawable/segon" />
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:passwordToggleEnabled="true">
+            <!-- ENTREM EL PASSWORD -->
+            <EditText
+                android:id="@+id/passCanvi"
+                android:layout_width="match_parent"
+                android:layout_height="57dp"
+                android:layout_marginTop="10dp"
+                android:hint="@string/passLogin"
+                android:inputType="textPassword"
+                android:textSize="22sp"
+                android:textColor="#FFFFFF"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
+        <!-- BOTO DE ENTRAR -->
+        <Button
+            android:id="@+id/canviarContrasenya"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/canviarContrasenya"
+            android:textSize="17sp"
+            android:background="@drawable/botopropi"
+
+            />
+
+    </LinearLayout>
+</RelativeLayout>
