@@ -17,8 +17,8 @@
 
         <ImageView
             android:id="@+id/imageView3"
-            android:layout_width="201dp"
-            android:layout_height="175dp"
+            android:layout_width="265dp"
+            android:layout_height="235dp"
             android:onClick="detect"
             app:layout_constraintBottom_toTopOf="@+id/guideline8"
             app:layout_constraintEnd_toStartOf="@+id/guideline3"
@@ -32,7 +32,8 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/amaranth"
             android:text="Institut Castellet"
-            android:textSize="48sp" />
+            android:textSize="48sp"
+            android:textColor="#FDE25E"/>
 
         <TextView
             android:id="@+id/cicle"
@@ -40,7 +41,8 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/amaranth"
             android:text="DAM"
-            android:textSize="48sp" />
+            android:textSize="48sp"
+            android:textColor="#FDE25E"/>
 
     </LinearLayout>
 

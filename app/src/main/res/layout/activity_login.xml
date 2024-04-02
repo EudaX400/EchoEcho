@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/gradient_background"
-    tools:context=".Registro">
+    tools:context=".Login">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -32,6 +32,8 @@
                 android:hint="@string/correoLogin"
                 android:inputType="textEmailAddress"
                 android:textSize="22sp"
+                android:textColor="#FFFFFF"
+                android:textColorHint="#FFFFFF"
                 />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -48,6 +50,7 @@
                 android:hint="@string/passLogin"
                 android:inputType="textPassword"
                 android:textSize="22sp"
+                android:textColor="#FFFFFF"
                 />
         </com.google.android.material.textfield.TextInputLayout>
         <!-- BOTO DE ENTRAR -->
