@@ -19,10 +19,10 @@ class Recyclerview1 : AppCompatActivity() {
         setContentView(R.layout.activity_recyclerview1)
 
         // Obtener datos de Firebase y configurar RecyclerView
-        obtenerDatosDeFirebase()
+        obtenirPuntuacio()
     }
 
-    private fun obtenerDatosDeFirebase() {
+    private fun obtenirPuntuacio() {
         val database = FirebaseDatabase.getInstance("https://echoecho-5e815-default-rtdb.europe-west1.firebasedatabase.app/")
         val bdreference = database.getReference("DATA BASE JUGADORS")
 

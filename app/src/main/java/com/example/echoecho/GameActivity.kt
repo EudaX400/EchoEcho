@@ -11,6 +11,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.animation.doOnEnd
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import kotlinx.coroutines.CoroutineScope
@@ -39,7 +40,7 @@ class GameActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_game)
 
-        database = FirebaseDatabase.getInstance().reference.child("scores")
+        database = FirebaseDatabase.getInstance().reference.child("Puntuacio")
         mediaPlayerPiano = MediaPlayer.create(this, R.raw.piano)
         mediaPlayerGuitar = MediaPlayer.create(this, R.raw.guitar)
         mediaPlayerTambor = MediaPlayer.create(this, R.raw.tambor)
@@ -139,37 +140,59 @@ class GameActivity : AppCompatActivity() {
     }
 
     private fun saveScoreAndShowResult() {
-        val score = puntsactuals
-        CoroutineScope(Dispatchers.IO).launch {
-            database.push().setValue(score)
-            withContext(Dispatchers.Main) {
-                setContentView(R.layout.activity_puntuacion)
-                val textViewPuntuacionValor = findViewById<TextView>(R.id.textViewPuntuacionValor)
-                textViewPuntuacionValor.text = score.toString()
+        val uid = FirebaseAuth.getInstance().currentUser?.uid
+        if (uid != null) {
+            val userScoreRef = FirebaseDatabase.getInstance("https://echoecho-5e815-default-rtdb.europe-west1.firebasedatabase.app/")
+                .reference
+                .child("DATA BASE JUGADORS")
+                .child(uid)
+                .child("Puntuacio")
 
-                // Handle the button click event to return to the main menu
-                findViewById<Button>(R.id.buttonVolver).setOnClickListener {
-                    val intent = Intent(this@GameActivity, MainActivity::class.java)
-                    startActivity(intent)
-                    finish() // Finish the current activity to prevent going back to it from the main menu
+            // Retrieve the existing score from the database
+            userScoreRef.get().addOnSuccessListener { dataSnapshot ->
+                if (dataSnapshot.exists()) {
+                    val existingScore = dataSnapshot.getValue(Int::class.java) ?: 0
+
+                    // Add the new score to the existing score
+                    val newScore = existingScore + puntsactuals
+
+                    // Convert the new score to a string before saving it to the database
+                    userScoreRef.setValue(newScore.toString())
+
+                    // Display the total score in the UI
+                    CoroutineScope(Dispatchers.Main).launch {
+                        setContentView(R.layout.activity_puntuacion)
+                        val textViewPuntuacionValor = findViewById<TextView>(R.id.textViewPuntuacionValor)
+                        textViewPuntuacionValor.text = newScore.toString()
+
+                        // Handle the button click event to return to the main menu
+                        findViewById<Button>(R.id.buttonVolver).setOnClickListener {
+                            val intent = Intent(this@GameActivity, MainActivity::class.java)
+                            startActivity(intent)
+                            finish() // Finish the current activity to prevent going back to it from the main menu
+                        }
+                    }
+                } else {
+                    // If the score node doesn't exist, set the new score as the initial score
+                    userScoreRef.setValue(puntsactuals.toString())
+
+                    // Display the new score in the UI
+                    CoroutineScope(Dispatchers.Main).launch {
+                        setContentView(R.layout.activity_puntuacion)
+                        val textViewPuntuacionValor = findViewById<TextView>(R.id.textViewPuntuacionValor)
+                        textViewPuntuacionValor.text = puntsactuals.toString()
+
+                        // Handle the button click event to return to the main menu
+                        findViewById<Button>(R.id.buttonVolver).setOnClickListener {
+                            val intent = Intent(this@GameActivity, MainActivity::class.java)
+                            startActivity(intent)
+                            finish() // Finish the current activity to prevent going back to it from the main menu
+                        }
+                    }
                 }
             }
         }
     }
-
-
-    /*private fun saveScoreAndShowResult() {
-        val score = puntsactuals
-        CoroutineScope(Dispatchers.IO).launch {
-            database.push().setValue(score)
-            withContext(Dispatchers.Main) {
-                val intent = Intent(this@GameActivity, PuntuacionActivity::class.java)
-                intent.putExtra("SCORE", score) // Pass the score value
-                startActivity(intent)
-            }
-        }
-    }*/
-
 
     override fun onDestroy() {
         super.onDestroy()

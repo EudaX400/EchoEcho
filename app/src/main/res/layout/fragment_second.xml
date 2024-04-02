@@ -17,14 +17,14 @@
 
         <ImageView
             android:id="@+id/imageView3"
-            android:layout_width="201dp"
-            android:layout_height="175dp"
+            android:layout_width="409dp"
+            android:layout_height="343dp"
             android:onClick="detect"
             app:layout_constraintBottom_toTopOf="@+id/guideline8"
             app:layout_constraintEnd_toStartOf="@+id/guideline3"
             app:layout_constraintStart_toStartOf="@+id/guideline"
             app:layout_constraintTop_toTopOf="@+id/guideline7"
-            app:srcCompat="@drawable/logo_castellet" />
+            app:srcCompat="@drawable/segon" />
 
         <TextView
             android:id="@+id/institut"
@@ -32,7 +32,8 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/amaranth"
             android:text="Eudald Daví Solà"
-            android:textSize="40sp" />
+            android:textSize="40sp"
+            android:textColor="#FDE25E"/>
 
         <TextView
             android:id="@+id/cicle"
@@ -40,7 +41,8 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/amaranth"
             android:text="Arnau Cepeda Vivas"
-            android:textSize="40sp"/>
+            android:textSize="40sp"
+            android:textColor="#FDE25E"/>
 
     </LinearLayout>
 
@@ -49,6 +51,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Menú"
+        android:textSize="25sp"
+        android:background="#FDE25E"
+        android:textColor="#9f16ba"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
