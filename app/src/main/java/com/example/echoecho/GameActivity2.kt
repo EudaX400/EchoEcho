@@ -102,8 +102,6 @@ class GameActivity2 : AppCompatActivity() {
         }
     }
 
-    private var primeraSecuencia = true
-
     private fun showSequence(add: Boolean) {
         CoroutineScope(Dispatchers.Default).launch {
             if (add)
@@ -114,13 +112,6 @@ class GameActivity2 : AppCompatActivity() {
                 withContext(Dispatchers.Main) {
                     shakeImage(i)
                 }
-            }
-
-            // Incrementar la puntuación solo si no es la primera secuencia
-            if (!primeraSecuencia) {
-                contador(10)
-            } else {
-                primeraSecuencia = false
             }
         }
     }
@@ -135,6 +126,7 @@ class GameActivity2 : AppCompatActivity() {
                 // El usuario ha completado la secuencia correctamente
                 showSequence(true)
                 current = 0 // Reiniciar el índice
+                contador(10)
             }
         } else {
             // El usuario ha fallado
